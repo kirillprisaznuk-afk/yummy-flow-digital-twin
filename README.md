@@ -128,54 +128,19 @@ Sensitivity changes one input at a time. Monte Carlo samples five independent tr
 
 ## Running Locally
 
-Requires Python 3.12+, Node.js 22+, pnpm 11.25.0 and Docker Desktop with a reachable engine. From the project root on Windows:
+Requires Python 3.12+, Node.js 22+, pnpm 11.25.0 and Docker Desktop. On a fresh checkout, create the Python environment, install the locked backend/frontend dependencies, and copy `.env.example` to a local `.env` with a matching local-only database password.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -c backend/requirements.lock -e './backend[dev,api]'
-# On a fresh checkout only; never overwrite an existing .env:
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-```
+Then double-click **START_YUMMY_FLOW.bat** to open http://localhost:3000. Double-click **STOP_YUMMY_FLOW.bat** when finished; saved database data is retained.
 
-Set a local-only password in `.env`, keeping its database URLs consistent. Install the frontend dependencies:
-
-```powershell
-cd frontend
-pnpm install --frozen-lockfile
-cd ..
-```
-
-Then double-click **START_YUMMY_FLOW.bat**. It starts PostgreSQL, checks migrations, starts both servers and opens http://localhost:3000. Double-click **STOP_YUMMY_FLOW.bat** when finished; saved database data is retained. See [simple instructions](RUNNING_THE_APP.md).
-
-For separate terminals, the equivalent tested commands are:
-
-```powershell
-docker compose up -d --wait
-./scripts/backend.ps1 -m app.database.migrate
-./scripts/backend.ps1 -m uvicorn app.main:app --host 127.0.0.1 --port 8000
-# In a second terminal, from frontend/:
-pnpm dev
-```
-
-The helper loads the ignored root `.env`; direct Python commands require exported environment variables. [Database guide](docs/DATABASE.md) covers migration safety and test databases. [Frontend guide](frontend/README.md) covers the server-only API URL and local build commands.
+[Complete setup and running instructions](RUNNING_THE_APP.md)
 
 ## Testing
 
-Independent arithmetic fixtures and boundary regressions test economics, break-even and capacity. API and PostgreSQL tests exercise validation, migrations and saved records across process/container restarts. Browser tests exercise scenario isolation, save/reload, cross-page consistency, sensitivity, seed replay and failure recovery.
+Independent arithmetic and boundary tests cover economics, capacity and break-even. API and PostgreSQL tests check validation, migrations and persistence. Analytics tests cover sensitivity and seeded Monte Carlo; browser tests exercise scenario editing, comparison, saved records and cross-page consistency.
 
-```powershell
-# Project root; PostgreSQL running. Restart test briefly restarts this project's DB.
-$env:YUMMY_TEST_COMPOSE_RESTART = '1'
-./scripts/backend.ps1 -m pytest --cov=app.domain --cov=app.analytics --cov-branch
-./scripts/backend.ps1 -m alembic check
-./scripts/backend.ps1 -m ruff check app tests
-./scripts/backend.ps1 -m ruff format --check app tests
-./scripts/backend.ps1 -m pip check
-```
+[GitHub Actions](https://github.com/kirillprisaznuk-afk/yummy-flow-digital-twin/actions/workflows/ci.yml) checks backend tests, PostgreSQL integration, lint, formatting, TypeScript and the frontend build on pushes and pull requests. Browser and local Docker-restart checks remain separate.
 
-From `frontend/`: `pnpm lint`, `pnpm typecheck`, `pnpm format:check`, `pnpm build`. With the API and frontend running, run `pnpm exec playwright install chromium` once, then `pnpm test`. Run database-restart tests separately from browser tests. Stop the development server before building; `pnpm start` serves the build locally.
-
-[Final validation record](docs/PORTFOLIO_REVIEW.md) records what was actually verified. A skipped PostgreSQL test is not verification. No Python static type checker or automated CI workflow is configured.
+[Validation commands and coverage boundaries](docs/TESTING.md)
 
 ## Project Background
 

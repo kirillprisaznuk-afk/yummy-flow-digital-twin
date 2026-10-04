@@ -2,7 +2,7 @@
 
 ## Current verification status
 
-Real PostgreSQL migrations, schema-drift checks and API/database restart persistence are verified. See [the final validation record](PORTFOLIO_REVIEW.md) for the current results. These checks demonstrate graceful restart persistence, not power-loss recovery or backups.
+Real PostgreSQL migrations, schema-drift checks and API/database restart persistence are verified. See [the testing guide](TESTING.md) for reproducible checks and CI coverage. These checks demonstrate graceful restart persistence, not power-loss recovery or backups.
 
 ## Local Compose workflow
 
