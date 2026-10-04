@@ -1,0 +1,41 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage*
+coverage.xml
+*.log
+htmlcov/
+*.egg-info/
+# Configuration and local databases
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.sqlite*
+# Frontend and build output
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+build/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+# Editor / OS temporary files
+.idea/
+.vscode/
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Local Windows launcher state
+.yummy-flow-runtime/

@@ -1,0 +1,2647 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Yummy Flow Digital Twin",
+    "description": "Quick-commerce decision support using illustrative synthetic assumptions. A new portfolio project; not historical Yummy Flow technology or operating data. Amounts are VAT-exclusive EUR. Decimal values are returned as strings.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/defaults": {
+      "get": {
+        "tags": [
+          "model"
+        ],
+        "summary": "Defaults",
+        "operationId": "defaults_api_v1_defaults_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assumptions-Output"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evaluate": {
+      "post": {
+        "tags": [
+          "model"
+        ],
+        "summary": "Evaluate Assumptions",
+        "operationId": "evaluate_assumptions_api_v1_evaluate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Assumptions-Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Evaluation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/compare": {
+      "post": {
+        "tags": [
+          "model"
+        ],
+        "summary": "Compare Assumptions",
+        "operationId": "compare_assumptions_api_v1_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comparison"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Create",
+        "operationId": "create_api_v1_scenarios_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "List Saved",
+        "operationId": "list_saved_api_v1_scenarios_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioRead"
+                  },
+                  "title": "Response List Saved Api V1 Scenarios Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Get Saved",
+        "operationId": "get_saved_api_v1_scenarios__scenario_id__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Replace",
+        "operationId": "replace_api_v1_scenarios__scenario_id__put",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioReplace"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Delete",
+        "operationId": "delete_api_v1_scenarios__scenario_id__delete",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/evaluation": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Evaluate Saved",
+        "operationId": "evaluate_saved_api_v1_scenarios__scenario_id__evaluation_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedEvaluation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/defaults": {
+      "get": {
+        "tags": [
+          "analytics"
+        ],
+        "summary": "Defaults",
+        "operationId": "defaults_api_v1_analytics_defaults_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationSettings-Output"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/sensitivity": {
+      "post": {
+        "tags": [
+          "analytics"
+        ],
+        "summary": "Analyse",
+        "operationId": "analyse_api_v1_analytics_sensitivity_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SensitivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensitivityResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/simulation": {
+      "post": {
+        "tags": [
+          "analytics"
+        ],
+        "summary": "Run Simulation",
+        "operationId": "run_simulation_api_v1_analytics_simulation_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Assumptions-Input": {
+        "properties": {
+          "orders_per_day": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Orders Per Day",
+            "default": "700"
+          },
+          "operating_days_per_month": {
+            "type": "integer",
+            "maximum": 31.0,
+            "minimum": 1.0,
+            "title": "Operating Days Per Month",
+            "default": 30
+          },
+          "operating_hours_per_day": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 24.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Operating Hours Per Day",
+            "default": "16"
+          },
+          "average_order_value": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Average Order Value",
+            "default": "28"
+          },
+          "delivery_fee": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Delivery Fee",
+            "default": "1.99"
+          },
+          "gross_margin": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Gross Margin",
+            "default": "0.25"
+          },
+          "shrinkage_rate": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Shrinkage Rate",
+            "default": "0.01"
+          },
+          "stockout_rate": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Stockout Rate",
+            "default": "0.02"
+          },
+          "variable_fulfilment_cost_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Variable Fulfilment Cost Per Order",
+            "default": "0.35"
+          },
+          "variable_delivery_cost_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Variable Delivery Cost Per Order",
+            "default": "0.50"
+          },
+          "payment_fee_rate": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Payment Fee Rate",
+            "default": "0.02"
+          },
+          "payment_fee_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Payment Fee Per Order",
+            "default": "0.10"
+          },
+          "customer_acquisition_cost": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Customer Acquisition Cost",
+            "default": "8"
+          },
+          "new_customer_order_share": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "New Customer Order Share",
+            "default": "0.05"
+          },
+          "monthly_rent": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Monthly Rent",
+            "default": "6500"
+          },
+          "monthly_utilities": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Monthly Utilities",
+            "default": "900"
+          },
+          "monthly_software_admin": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Monthly Software Admin",
+            "default": "500"
+          },
+          "fulfilment_workers": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Fulfilment Workers",
+            "default": 12
+          },
+          "worker_paid_hours_per_month": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 240.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Worker Paid Hours Per Month",
+            "default": "160"
+          },
+          "worker_hourly_cost": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Worker Hourly Cost",
+            "default": "14"
+          },
+          "worker_productive_fraction": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Worker Productive Fraction",
+            "default": "0.85"
+          },
+          "picking_minutes_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Picking Minutes Per Order",
+            "default": "3"
+          },
+          "packing_minutes_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Packing Minutes Per Order",
+            "default": "1"
+          },
+          "store_orders_per_hour": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Store Orders Per Hour",
+            "default": "80"
+          },
+          "riders": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Riders",
+            "default": 36
+          },
+          "rider_paid_hours_per_month": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 240.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Rider Paid Hours Per Month",
+            "default": "160"
+          },
+          "rider_hourly_cost": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Rider Hourly Cost",
+            "default": "13"
+          },
+          "rider_productive_fraction": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Rider Productive Fraction",
+            "default": "0.85"
+          },
+          "average_delivery_distance_km": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Average Delivery Distance Km",
+            "default": "1.5"
+          },
+          "rider_average_speed_kmh": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Rider Average Speed Kmh",
+            "default": "18"
+          },
+          "delivery_handoff_minutes": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Delivery Handoff Minutes",
+            "default": "5"
+          },
+          "starting_cash": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Starting Cash",
+            "default": "150000"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Assumptions",
+        "description": "One store, average operating day, VAT-exclusive EUR, fixed monthly staffing."
+      },
+      "Assumptions-Output": {
+        "properties": {
+          "orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Orders Per Day",
+            "default": "700"
+          },
+          "operating_days_per_month": {
+            "type": "integer",
+            "maximum": 31.0,
+            "minimum": 1.0,
+            "title": "Operating Days Per Month",
+            "default": 30
+          },
+          "operating_hours_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Operating Hours Per Day",
+            "default": "16"
+          },
+          "average_order_value": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Average Order Value",
+            "default": "28"
+          },
+          "delivery_fee": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Delivery Fee",
+            "default": "1.99"
+          },
+          "gross_margin": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Gross Margin",
+            "default": "0.25"
+          },
+          "shrinkage_rate": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Shrinkage Rate",
+            "default": "0.01"
+          },
+          "stockout_rate": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Stockout Rate",
+            "default": "0.02"
+          },
+          "variable_fulfilment_cost_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Variable Fulfilment Cost Per Order",
+            "default": "0.35"
+          },
+          "variable_delivery_cost_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Variable Delivery Cost Per Order",
+            "default": "0.50"
+          },
+          "payment_fee_rate": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Payment Fee Rate",
+            "default": "0.02"
+          },
+          "payment_fee_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Payment Fee Per Order",
+            "default": "0.10"
+          },
+          "customer_acquisition_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Customer Acquisition Cost",
+            "default": "8"
+          },
+          "new_customer_order_share": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "New Customer Order Share",
+            "default": "0.05"
+          },
+          "monthly_rent": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Monthly Rent",
+            "default": "6500"
+          },
+          "monthly_utilities": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Monthly Utilities",
+            "default": "900"
+          },
+          "monthly_software_admin": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Monthly Software Admin",
+            "default": "500"
+          },
+          "fulfilment_workers": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Fulfilment Workers",
+            "default": 12
+          },
+          "worker_paid_hours_per_month": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Worker Paid Hours Per Month",
+            "default": "160"
+          },
+          "worker_hourly_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Worker Hourly Cost",
+            "default": "14"
+          },
+          "worker_productive_fraction": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Worker Productive Fraction",
+            "default": "0.85"
+          },
+          "picking_minutes_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Picking Minutes Per Order",
+            "default": "3"
+          },
+          "packing_minutes_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Packing Minutes Per Order",
+            "default": "1"
+          },
+          "store_orders_per_hour": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Store Orders Per Hour",
+            "default": "80"
+          },
+          "riders": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "minimum": 0.0,
+            "title": "Riders",
+            "default": 36
+          },
+          "rider_paid_hours_per_month": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Rider Paid Hours Per Month",
+            "default": "160"
+          },
+          "rider_hourly_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Rider Hourly Cost",
+            "default": "13"
+          },
+          "rider_productive_fraction": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Rider Productive Fraction",
+            "default": "0.85"
+          },
+          "average_delivery_distance_km": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Average Delivery Distance Km",
+            "default": "1.5"
+          },
+          "rider_average_speed_kmh": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Rider Average Speed Kmh",
+            "default": "18"
+          },
+          "delivery_handoff_minutes": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Delivery Handoff Minutes",
+            "default": "5"
+          },
+          "starting_cash": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Starting Cash",
+            "default": "150000"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Assumptions",
+        "description": "One store, average operating day, VAT-exclusive EUR, fixed monthly staffing."
+      },
+      "BreakEvenResult": {
+        "properties": {
+          "monthly_fulfilled_orders": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Fulfilled Orders"
+          },
+          "fulfilled_orders_per_day": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fulfilled Orders Per Day"
+          },
+          "requested_orders_per_day": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Orders Per Day"
+          },
+          "monthly_revenue": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Revenue"
+          },
+          "reachable_at_current_capacity": {
+            "type": "boolean",
+            "title": "Reachable At Current Capacity"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "reachable",
+              "capacity_shortfall",
+              "all_demand_stocked_out",
+              "nonpositive_contribution",
+              "zero_fixed_costs"
+            ],
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "monthly_fulfilled_orders",
+          "fulfilled_orders_per_day",
+          "requested_orders_per_day",
+          "monthly_revenue",
+          "reachable_at_current_capacity",
+          "reason"
+        ],
+        "title": "BreakEvenResult"
+      },
+      "CapacityResult": {
+        "properties": {
+          "requested_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Requested Orders Per Day"
+          },
+          "eligible_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Eligible Orders Per Day"
+          },
+          "stockout_lost_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Stockout Lost Orders Per Day"
+          },
+          "capacity_lost_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Capacity Lost Orders Per Day"
+          },
+          "fulfilled_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Fulfilled Orders Per Day"
+          },
+          "fulfilment_capacity_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Fulfilment Capacity Per Day"
+          },
+          "delivery_capacity_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Delivery Capacity Per Day"
+          },
+          "store_capacity_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Store Capacity Per Day"
+          },
+          "system_capacity_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "System Capacity Per Day"
+          },
+          "limiting_resources": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "fulfilment",
+                "delivery",
+                "store"
+              ]
+            },
+            "type": "array",
+            "title": "Limiting Resources"
+          },
+          "active_bottlenecks": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "fulfilment",
+                "delivery",
+                "store"
+              ]
+            },
+            "type": "array",
+            "title": "Active Bottlenecks"
+          },
+          "fulfilment_utilisation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fulfilment Utilisation"
+          },
+          "delivery_utilisation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Utilisation"
+          },
+          "store_utilisation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Store Utilisation"
+          },
+          "system_utilisation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "System Utilisation"
+          },
+          "required_fulfilment_workers": {
+            "type": "integer",
+            "title": "Required Fulfilment Workers"
+          },
+          "required_riders": {
+            "type": "integer",
+            "title": "Required Riders"
+          },
+          "delivery_cycle_minutes": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Delivery Cycle Minutes"
+          },
+          "deliveries_per_productive_rider_hour": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Deliveries Per Productive Rider Hour"
+          },
+          "orders_per_productive_worker_hour": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Orders Per Productive Worker Hour"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "requested_orders_per_day",
+          "eligible_orders_per_day",
+          "stockout_lost_orders_per_day",
+          "capacity_lost_orders_per_day",
+          "fulfilled_orders_per_day",
+          "fulfilment_capacity_per_day",
+          "delivery_capacity_per_day",
+          "store_capacity_per_day",
+          "system_capacity_per_day",
+          "limiting_resources",
+          "active_bottlenecks",
+          "fulfilment_utilisation",
+          "delivery_utilisation",
+          "store_utilisation",
+          "system_utilisation",
+          "required_fulfilment_workers",
+          "required_riders",
+          "delivery_cycle_minutes",
+          "deliveries_per_productive_rider_hour",
+          "orders_per_productive_worker_hour",
+          "explanation"
+        ],
+        "title": "CapacityResult"
+      },
+      "CashResult": {
+        "properties": {
+          "monthly_operating_burn": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Monthly Operating Burn"
+          },
+          "static_runway_months": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Static Runway Months"
+          },
+          "runway_status": {
+            "type": "string",
+            "enum": [
+              "burning_cash",
+              "no_operating_burn"
+            ],
+            "title": "Runway Status"
+          },
+          "cash_balance_is_zero": {
+            "type": "boolean",
+            "title": "Cash Balance Is Zero"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "monthly_operating_burn",
+          "static_runway_months",
+          "runway_status",
+          "cash_balance_is_zero"
+        ],
+        "title": "CashResult"
+      },
+      "Comparison": {
+        "properties": {
+          "baseline_operating_days_per_month": {
+            "type": "integer",
+            "title": "Baseline Operating Days Per Month"
+          },
+          "alternative_operating_days_per_month": {
+            "type": "integer",
+            "title": "Alternative Operating Days Per Month"
+          },
+          "same_operating_days": {
+            "type": "boolean",
+            "title": "Same Operating Days"
+          },
+          "baseline": {
+            "$ref": "#/components/schemas/Evaluation"
+          },
+          "alternative": {
+            "$ref": "#/components/schemas/Evaluation"
+          },
+          "deltas": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MetricDelta"
+            },
+            "type": "object",
+            "title": "Deltas"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "baseline_operating_days_per_month",
+          "alternative_operating_days_per_month",
+          "same_operating_days",
+          "baseline",
+          "alternative",
+          "deltas"
+        ],
+        "title": "Comparison"
+      },
+      "ComparisonRequest": {
+        "properties": {
+          "baseline": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          },
+          "alternative": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "baseline",
+          "alternative"
+        ],
+        "title": "ComparisonRequest"
+      },
+      "EconomicsResult": {
+        "properties": {
+          "monthly_fulfilled_orders": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Monthly Fulfilled Orders"
+          },
+          "product_revenue": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Product Revenue"
+          },
+          "delivery_revenue": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Delivery Revenue"
+          },
+          "total_revenue": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Total Revenue"
+          },
+          "product_cogs": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Product Cogs"
+          },
+          "product_gross_profit": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Product Gross Profit"
+          },
+          "product_gross_margin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Gross Margin"
+          },
+          "shrinkage_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Shrinkage Cost"
+          },
+          "variable_fulfilment_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Variable Fulfilment Cost"
+          },
+          "variable_delivery_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Variable Delivery Cost"
+          },
+          "payment_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Payment Cost"
+          },
+          "acquisition_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Acquisition Cost"
+          },
+          "contribution": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Contribution"
+          },
+          "contribution_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Contribution Per Order"
+          },
+          "contribution_margin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contribution Margin"
+          },
+          "fulfilment_payroll": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Fulfilment Payroll"
+          },
+          "rider_payroll": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Rider Payroll"
+          },
+          "total_delivery_cost": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Total Delivery Cost"
+          },
+          "fixed_operating_costs": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Fixed Operating Costs"
+          },
+          "total_operating_costs": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Total Operating Costs"
+          },
+          "cost_per_order": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Per Order"
+          },
+          "operating_profit": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Operating Profit"
+          },
+          "operating_margin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operating Margin"
+          },
+          "is_at_or_above_break_even": {
+            "type": "boolean",
+            "title": "Is At Or Above Break Even"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "monthly_fulfilled_orders",
+          "product_revenue",
+          "delivery_revenue",
+          "total_revenue",
+          "product_cogs",
+          "product_gross_profit",
+          "product_gross_margin",
+          "shrinkage_cost",
+          "variable_fulfilment_cost",
+          "variable_delivery_cost",
+          "payment_cost",
+          "acquisition_cost",
+          "contribution",
+          "contribution_per_order",
+          "contribution_margin",
+          "fulfilment_payroll",
+          "rider_payroll",
+          "total_delivery_cost",
+          "fixed_operating_costs",
+          "total_operating_costs",
+          "cost_per_order",
+          "operating_profit",
+          "operating_margin",
+          "is_at_or_above_break_even"
+        ],
+        "title": "EconomicsResult"
+      },
+      "Evaluation": {
+        "properties": {
+          "model_version": {
+            "type": "string",
+            "const": "1.1",
+            "title": "Model Version",
+            "default": "1.1"
+          },
+          "data_classification": {
+            "type": "string",
+            "const": "illustrative_synthetic",
+            "title": "Data Classification",
+            "default": "illustrative_synthetic"
+          },
+          "currency": {
+            "type": "string",
+            "const": "EUR",
+            "title": "Currency",
+            "default": "EUR"
+          },
+          "capacity": {
+            "$ref": "#/components/schemas/CapacityResult"
+          },
+          "economics": {
+            "$ref": "#/components/schemas/EconomicsResult"
+          },
+          "break_even": {
+            "$ref": "#/components/schemas/BreakEvenResult"
+          },
+          "cash": {
+            "$ref": "#/components/schemas/CashResult"
+          },
+          "reporting": {
+            "$ref": "#/components/schemas/ReportingResult"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "capacity",
+          "economics",
+          "break_even",
+          "cash",
+          "reporting"
+        ],
+        "title": "Evaluation"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HistogramBin": {
+        "properties": {
+          "lower": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Lower"
+          },
+          "upper": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Upper"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "lower",
+          "upper",
+          "count"
+        ],
+        "title": "HistogramBin"
+      },
+      "MetricDelta": {
+        "properties": {
+          "baseline": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline"
+          },
+          "alternative": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alternative"
+          },
+          "absolute_change": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Absolute Change"
+          },
+          "relative_change": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relative Change"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "baseline",
+          "alternative",
+          "absolute_change",
+          "relative_change"
+        ],
+        "title": "MetricDelta"
+      },
+      "ReportingResult": {
+        "properties": {
+          "per_fulfilled_order": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Per Fulfilled Order"
+          },
+          "resource_gaps": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ResourceGap"
+            },
+            "propertyNames": {
+              "enum": [
+                "fulfilment",
+                "delivery",
+                "store"
+              ]
+            },
+            "type": "object",
+            "title": "Resource Gaps"
+          },
+          "additional_fulfilment_workers": {
+            "type": "integer",
+            "title": "Additional Fulfilment Workers"
+          },
+          "additional_riders": {
+            "type": "integer",
+            "title": "Additional Riders"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "per_fulfilled_order",
+          "resource_gaps",
+          "additional_fulfilment_workers",
+          "additional_riders"
+        ],
+        "title": "ReportingResult"
+      },
+      "ResourceGap": {
+        "properties": {
+          "spare_after_fulfilment": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Spare After Fulfilment"
+          },
+          "shortfall_to_eligible_demand": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Shortfall To Eligible Demand"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "spare_after_fulfilment",
+          "shortfall_to_eligible_demand"
+        ],
+        "title": "ResourceGap"
+      },
+      "SamplingBounds": {
+        "properties": {
+          "low": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Low"
+          },
+          "mode": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Mode"
+          },
+          "high": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "High"
+          },
+          "bounded": {
+            "type": "boolean",
+            "title": "Bounded"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "low",
+          "mode",
+          "high",
+          "bounded"
+        ],
+        "title": "SamplingBounds"
+      },
+      "SavedEvaluation": {
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/ScenarioRead"
+          },
+          "evaluation": {
+            "$ref": "#/components/schemas/Evaluation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario",
+          "evaluation"
+        ],
+        "title": "SavedEvaluation"
+      },
+      "ScenarioRead": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Description",
+            "default": ""
+          },
+          "assumptions": {
+            "$ref": "#/components/schemas/Assumptions-Output"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "model_version": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "title": "Model Version"
+          },
+          "data_classification": {
+            "type": "string",
+            "const": "illustrative_synthetic",
+            "title": "Data Classification",
+            "default": "illustrative_synthetic"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "assumptions",
+          "id",
+          "model_version",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ScenarioRead"
+      },
+      "ScenarioReplace": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Description",
+            "default": ""
+          },
+          "assumptions": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "assumptions"
+        ],
+        "title": "ScenarioReplace"
+      },
+      "ScenarioWrite": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Description",
+            "default": ""
+          },
+          "assumptions": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ScenarioWrite"
+      },
+      "SensitivityPoint": {
+        "properties": {
+          "change_percent": {
+            "type": "integer",
+            "title": "Change Percent"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Value"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Evaluation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "operating_profit_delta": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operating Profit Delta"
+          },
+          "unavailable_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unavailable Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "change_percent",
+          "value",
+          "result",
+          "operating_profit_delta"
+        ],
+        "title": "SensitivityPoint"
+      },
+      "SensitivityRequest": {
+        "properties": {
+          "assumptions": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "assumptions"
+        ],
+        "title": "SensitivityRequest"
+      },
+      "SensitivityResult": {
+        "properties": {
+          "analytics_version": {
+            "type": "string",
+            "title": "Analytics Version",
+            "default": "1.0"
+          },
+          "baseline": {
+            "$ref": "#/components/schemas/Evaluation"
+          },
+          "variables": {
+            "items": {
+              "$ref": "#/components/schemas/SensitivityVariable"
+            },
+            "type": "array",
+            "title": "Variables"
+          },
+          "insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Insights"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "baseline",
+          "variables",
+          "insights"
+        ],
+        "title": "SensitivityResult"
+      },
+      "SensitivityVariable": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "baseline_value": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Baseline Value"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/SensitivityPoint"
+            },
+            "type": "array",
+            "title": "Points"
+          },
+          "impact_range": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Impact Range"
+          },
+          "downside_delta": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Downside Delta"
+          },
+          "upside_delta": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Upside Delta"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "unit",
+          "baseline_value",
+          "points",
+          "impact_range",
+          "downside_delta",
+          "upside_delta"
+        ],
+        "title": "SensitivityVariable"
+      },
+      "SimulationRequest": {
+        "properties": {
+          "assumptions": {
+            "$ref": "#/components/schemas/Assumptions-Input"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/SimulationSettings-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "assumptions"
+        ],
+        "title": "SimulationRequest"
+      },
+      "SimulationResult": {
+        "properties": {
+          "analytics_version": {
+            "type": "string",
+            "title": "Analytics Version",
+            "default": "1.0"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "python_version": {
+            "type": "string",
+            "title": "Python Version"
+          },
+          "distribution": {
+            "type": "string",
+            "const": "independent_triangular",
+            "title": "Distribution",
+            "default": "independent_triangular"
+          },
+          "runs": {
+            "type": "integer",
+            "title": "Runs"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/SimulationSettings-Output"
+          },
+          "baseline": {
+            "$ref": "#/components/schemas/Evaluation"
+          },
+          "bounds": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SamplingBounds"
+            },
+            "type": "object",
+            "title": "Bounds"
+          },
+          "expected_operating_profit": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Expected Operating Profit"
+          },
+          "p10": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "P10"
+          },
+          "p50": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "P50"
+          },
+          "p90": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "P90"
+          },
+          "probability_profit": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Probability Profit"
+          },
+          "probability_loss": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Probability Loss"
+          },
+          "probability_break_even": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Probability Break Even"
+          },
+          "probability_capacity_constraint": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Probability Capacity Constraint"
+          },
+          "bottleneck_probabilities": {
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+            },
+            "propertyNames": {
+              "enum": [
+                "fulfilment",
+                "delivery",
+                "store"
+              ]
+            },
+            "type": "object",
+            "title": "Bottleneck Probabilities"
+          },
+          "expected_fulfilled_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Expected Fulfilled Orders Per Day"
+          },
+          "expected_capacity_lost_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Expected Capacity Lost Orders Per Day"
+          },
+          "expected_stockout_lost_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Expected Stockout Lost Orders Per Day"
+          },
+          "expected_total_lost_orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+            "title": "Expected Total Lost Orders Per Day"
+          },
+          "histogram": {
+            "items": {
+              "$ref": "#/components/schemas/HistogramBin"
+            },
+            "type": "array",
+            "title": "Histogram"
+          },
+          "sample_digest": {
+            "type": "string",
+            "title": "Sample Digest"
+          },
+          "insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Insights"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_version",
+          "python_version",
+          "runs",
+          "seed",
+          "settings",
+          "baseline",
+          "bounds",
+          "expected_operating_profit",
+          "p10",
+          "p50",
+          "p90",
+          "probability_profit",
+          "probability_loss",
+          "probability_break_even",
+          "probability_capacity_constraint",
+          "bottleneck_probabilities",
+          "expected_fulfilled_orders_per_day",
+          "expected_capacity_lost_orders_per_day",
+          "expected_stockout_lost_orders_per_day",
+          "expected_total_lost_orders_per_day",
+          "histogram",
+          "sample_digest",
+          "insights"
+        ],
+        "title": "SimulationResult"
+      },
+      "SimulationSettings-Input": {
+        "properties": {
+          "runs": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1000.0,
+            "title": "Runs",
+            "default": 1000
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 4294967295.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed",
+            "default": 42
+          },
+          "uncertainty": {
+            "$ref": "#/components/schemas/Uncertainty-Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SimulationSettings"
+      },
+      "SimulationSettings-Output": {
+        "properties": {
+          "runs": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 1000.0,
+            "title": "Runs",
+            "default": 1000
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 4294967295.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed",
+            "default": 42
+          },
+          "uncertainty": {
+            "$ref": "#/components/schemas/Uncertainty-Output"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SimulationSettings"
+      },
+      "Uncertainty-Input": {
+        "properties": {
+          "orders_per_day": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Orders Per Day",
+            "default": "15"
+          },
+          "average_order_value": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Average Order Value",
+            "default": "8"
+          },
+          "gross_margin": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Gross Margin",
+            "default": "3"
+          },
+          "variable_delivery_cost_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Variable Delivery Cost Per Order",
+            "default": "10"
+          },
+          "variable_fulfilment_cost_per_order": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "string",
+                "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)"
+              }
+            ],
+            "title": "Variable Fulfilment Cost Per Order",
+            "default": "10"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Uncertainty"
+      },
+      "Uncertainty-Output": {
+        "properties": {
+          "orders_per_day": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Orders Per Day",
+            "default": "15"
+          },
+          "average_order_value": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Average Order Value",
+            "default": "8"
+          },
+          "gross_margin": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Gross Margin",
+            "default": "3"
+          },
+          "variable_delivery_cost_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Variable Delivery Cost Per Order",
+            "default": "10"
+          },
+          "variable_fulfilment_cost_per_order": {
+            "type": "string",
+            "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,12}|(?=[\\d.]{1,19}0*$)\\d{0,12}\\.\\d{0,6}0*$)",
+            "title": "Variable Fulfilment Cost Per Order",
+            "default": "10"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Uncertainty"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
